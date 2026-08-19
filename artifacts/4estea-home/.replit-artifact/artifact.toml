@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "4ESTEA — Boba & Cafe"
+description = "A vibrant one-page homepage for 4ESTEA, a Filipino boba and cafe in Rancho Cordova, California, showcasing its food, drinks, story, and ways to visit."
+version = "1.0.0"
+id = "artifacts/4estea-home"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23096
+
+[services.development]
+run = "pnpm --filter @workspace/4estea-home run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/4estea-home", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/4estea-home/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23096"
+BASE_PATH = "/"
